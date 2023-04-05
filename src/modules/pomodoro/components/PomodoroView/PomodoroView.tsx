@@ -1,7 +1,8 @@
 'use client'
 
-import { Container, styled } from '@mui/material'
+import { Container, Stack, styled } from '@mui/material'
 import CircularTimer from '../CircularTimer'
+import TimerControls from '../TimerControls'
 
 const PomodoroViewRoot = styled(Container, { name: 'PomodoroView' })({
   display: 'flex',
@@ -13,7 +14,11 @@ const PomodoroViewRoot = styled(Container, { name: 'PomodoroView' })({
 export default function PomodoroView() {
   return (
     <PomodoroViewRoot>
-      <CircularTimer />
+      <Stack gap={5}>
+        <CircularTimer />
+
+        <TimerControls />
+      </Stack>
     </PomodoroViewRoot>
   )
 }
