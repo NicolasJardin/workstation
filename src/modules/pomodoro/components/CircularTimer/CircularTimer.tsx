@@ -1,3 +1,5 @@
+'use client'
+
 import { useTimerStore } from '@/stores'
 import { CountdownCircleTimer, Props } from 'react-countdown-circle-timer'
 
@@ -7,7 +9,7 @@ export default function CircularTimer(props: CircularTimerProps) {
   const { duration, isPlaying } = useTimerStore()
 
   return (
-    <CountdownCircleTimer {...props} isPlaying={isPlaying} duration={duration} colors="#D75413">
+    <CountdownCircleTimer {...props} isPlaying={isPlaying} duration={duration} colors="#8B2C0B">
       {({ remainingTime }) => remainingTime}
     </CountdownCircleTimer>
   )
