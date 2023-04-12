@@ -1,5 +1,6 @@
 import TopBar from '@/modules/surfaces/components/TopBar'
 import '../globals.css'
+import Body from '@/modules/layout/Body'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,11 +10,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="description" content="The better place for work" />
       </head>
 
-      <body>
+      <Body>
         <TopBar />
 
         <main style={{ height: 'calc(100vh - 65px)' }}>{children}</main>
-      </body>
+      </Body>
     </html>
   )
 }

@@ -9,7 +9,7 @@ export default function CircularTimer(props: CircularTimerProps) {
   const { duration, isPlaying } = useTimerStore()
 
   return (
-    <CountdownCircleTimer {...props} isPlaying={isPlaying} duration={duration} colors="#8B2C0B">
+    <CountdownCircleTimer {...props} isPlaying={isPlaying} duration={duration} colors="#B91C1C">
       {({ remainingTime }) => remainingTime}
     </CountdownCircleTimer>
   )
