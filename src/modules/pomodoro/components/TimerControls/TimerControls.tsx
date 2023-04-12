@@ -1,17 +1,8 @@
 'use client'
 
 import { useTimerStore } from '@/stores'
-import { styled } from '@mui/material'
 import { useMemo } from 'react'
 import { FaPlay, FaPause } from 'react-icons/fa'
-
-const TimerControlsRoot = styled('div', { name: 'TimerControls' })({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  gap: 10
-})
 
 export default function TimerControls() {
   const { isPlaying, pause, play } = useTimerStore()
@@ -22,5 +13,5 @@ export default function TimerControls() {
     return <FaPlay size={40} onClick={play} />
   }, [isPlaying, pause, play])
 
-  return <TimerControlsRoot>{mainControl}</TimerControlsRoot>
+  return <div className="flex items-center justify-center cursor-pointer">{mainControl}</div>
 }

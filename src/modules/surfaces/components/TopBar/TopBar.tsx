@@ -1,20 +1,16 @@
-import { AppBar, IconButton, Toolbar, styled } from '@mui/material'
+'use client'
+import { useThemeStore } from '@/stores'
 import { GiTomato } from 'react-icons/gi'
-
-const AppToolBar = styled(Toolbar)(({ theme }) => ({
-  justifyContent: 'center',
-  background: 'linear-gradient(to bottom right, #A6A6A6, #CCCCCC);'
-  // background: 'linear-gradient(to bottom right, #434343, #6E6E6E)' dark theme
-}))
+import { MdDarkMode } from 'react-icons/md'
 
 export default function TopBar() {
+  const { changeTheme } = useThemeStore()
+
   return (
-    <AppBar position="static">
-      <AppToolBar>
-        <IconButton size="large">
-          <GiTomato color="#D75413" />
-        </IconButton>
-      </AppToolBar>
-    </AppBar>
+    <div className="h-14 flex items-center justify-center space-x-40 bg-gradient-to-br from-gray-400 to-gray-200 dark:from-gray-800 dark:to-gray-500">
+      <GiTomato className="cursor-pointer" color="#B91C1C" size={30} />
+
+      <MdDarkMode onClick={changeTheme} className="cursor-pointer" size={30} />
+    </div>
   )
 }
