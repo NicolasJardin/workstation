@@ -5,7 +5,7 @@ import { CountdownCircleTimer, Props } from 'react-countdown-circle-timer'
 
 type CircularTimerProps = Partial<Omit<Props, 'colors' | 'colorsTime'>>
 
-export default function CircularTimer(props: CircularTimerProps) {
+export function CircularTimer(props: CircularTimerProps) {
   const { duration, isPlaying } = useTimerStore()
 
   return (

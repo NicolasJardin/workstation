@@ -4,7 +4,7 @@ import { useTimerStore } from '@/stores'
 import { useMemo } from 'react'
 import { FaPlay, FaPause } from 'react-icons/fa'
 
-export default function TimerControls() {
+export function TimerControls() {
   const { isPlaying, pause, play } = useTimerStore()
 
   const mainControl = useMemo(() => {

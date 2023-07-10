@@ -1,5 +1,5 @@
-import PomodoroView from '@/modules/pomodoro/components/PomodoroView'
+import { Pomodoro } from '@/views/Pomodoro'
 
 export default function Home() {
-  return <PomodoroView />
+  return <Pomodoro />
 }

@@ -3,7 +3,7 @@ import { useThemeStore } from '@/stores'
 import { GiTomato } from 'react-icons/gi'
 import { MdDarkMode } from 'react-icons/md'
 
-export default function TopBar() {
+export function TopBar() {
   const { changeTheme } = useThemeStore()
 
   return (

@@ -1,7 +1,6 @@
-import CircularTimer from '../CircularTimer'
-import TimerControls from '../TimerControls'
+import { CircularTimer, TimerControls } from '@/modules/pomodoro'
 
-export default function PomodoroView() {
+export function Pomodoro() {
   return (
     <div className="flex flex-col gap-5 items-center">
       <CircularTimer />
