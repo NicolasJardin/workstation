@@ -5,7 +5,11 @@ import { HtmlHTMLAttributes } from 'react'
 
 type CountdownProps = HtmlHTMLAttributes<HTMLParagraphElement>
 export function Countdown({ className, ...props }: CountdownProps) {
-  const { minutes, seconds } = useAppContext()
+  const {
+    pomodoro: {
+      time: { minutes, seconds }
+    }
+  } = useAppContext()
 
   return (
     <p className={cn('text-3xl font-semibold', className)} {...props}>

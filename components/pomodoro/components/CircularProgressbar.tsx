@@ -4,11 +4,15 @@ import { CircularProgressbar as ReactCircularProgressbar } from 'react-circular-
 import 'react-circular-progressbar/dist/styles.css'
 
 export function CircularProgressbar() {
-  const { time } = useAppContext()
+  const {
+    pomodoro: {
+      time: { value }
+    }
+  } = useAppContext()
 
   return (
     <div className="h-72 w-72">
-      <ReactCircularProgressbar value={time} maxValue={5} />
+      <ReactCircularProgressbar value={value} maxValue={5} />
     </div>
   )
 }
