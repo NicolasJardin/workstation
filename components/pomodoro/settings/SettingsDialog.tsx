@@ -1,14 +1,14 @@
-import { Button } from '@/components/ui/button'
+'use client'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Settings } from 'lucide-react'
+import { SettingsForm } from './components'
 
 export function SettingsDialog() {
   return (
@@ -23,10 +23,7 @@ export function SettingsDialog() {
             Customize seu pomodoro do jeito que funcionar melhor para você!
           </DialogDescription>
         </DialogHeader>
-
-        <DialogFooter>
-          <Button type="submit">Salvar</Button>
-        </DialogFooter>
+        <SettingsForm className="mt-4" />
       </DialogContent>
     </Dialog>
   )
