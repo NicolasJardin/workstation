@@ -1,53 +1,22 @@
 'use client'
 import { PropsWithChildren, createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import useSound from 'use-sound'
-import type { PomodoroFlow, PomodoroStore } from './types'
+import { useGetDefaultFlow } from '../../hooks'
+import type { PomodoroFlow, PomodoroStore } from '../../types'
 
 export const PomodoroContext = createContext<PomodoroStore>({} as PomodoroStore)
 
-export function PomodoroProvider(props: PropsWithChildren<{}>) {
-  const flow: PomodoroFlow[] = [
-    {
-      position: 0,
-      seconds: 15,
-      type: 'pomodoro'
-    },
-    {
-      position: 1,
-      seconds: 5,
-      type: 'short-break'
-    },
-    {
-      position: 2,
-      seconds: 15,
-      type: 'pomodoro'
-    },
-    {
-      position: 3,
-      seconds: 5,
-      type: 'short-break'
-    },
-    {
-      position: 4,
-      seconds: 15,
-      type: 'pomodoro'
-    },
-    {
-      position: 5,
-      seconds: 5,
-      type: 'short-break'
-    },
-    {
-      position: 6,
-      seconds: 15,
-      type: 'pomodoro'
-    },
-    {
-      position: 7,
-      seconds: 20,
-      type: 'long-break'
-    }
-  ]
+type PomodoroProviderProps = PropsWithChildren<{
+  pomodoroFlow: string | undefined
+}>
+
+export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderProps) {
+  const defaultFlow = useGetDefaultFlow()
+
+  const flow = useMemo(
+    () => (pomodoroFlow ? (JSON.parse(pomodoroFlow) as PomodoroFlow[]) : defaultFlow),
+    [defaultFlow, pomodoroFlow]
+  )
 
   const [time, setTime] = useState<number>(flow[0].seconds)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
@@ -98,7 +67,7 @@ export function PomodoroProvider(props: PropsWithChildren<{}>) {
     return () => {
       clearInterval(timer)
     }
-  }, [time, playSound, isPlaying])
+  }, [time, playSound, isPlaying, skip])
 
   const minutes = useMemo(
     () =>
