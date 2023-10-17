@@ -10,7 +10,7 @@ import {
 
 export function Pomodoro() {
   return (
-    <div className="flex items-center justify-center h-full">
+    <div className="flex items-center justify-center h-full bg-[url('/img/background.jpg')] bg-cover">
       <PomodoroFinishedDialog />
       <Card>
         <CardHeader className="items-end">
