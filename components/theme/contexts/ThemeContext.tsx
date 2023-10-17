@@ -1,4 +1,5 @@
 'use client'
+import { maxAge } from '@/constants'
 import { setCookie } from 'cookies-next'
 import { PropsWithChildren, createContext, useCallback, useState } from 'react'
 
@@ -20,7 +21,9 @@ export function ThemeProvider({
   const toggleTheme = useCallback(() => {
     setTheme(prevValue => {
       const newTheme = prevValue === 'light' ? 'dark' : 'light'
-      setCookie('theme', newTheme)
+      setCookie('theme', newTheme, {
+        maxAge
+      })
 
       return newTheme
     })
