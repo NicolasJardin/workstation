@@ -1,7 +1,9 @@
 export type PomodoroStore = {
   time: PomodoroTime
   isPlaying: boolean
+  isFinished: boolean
   currentFlow: PomodoroFlow
+  reset: () => void
   play: () => void
   pause: () => void
   skip: () => void

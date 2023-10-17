@@ -51,13 +51,20 @@ export function PomodoroProvider(props: PropsWithChildren<{}>) {
 
   const [time, setTime] = useState<number>(flow[0].seconds)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
+  const [isFinished, setIsFinished] = useState<boolean>(false)
   const [currentFlow, setCurrentFlow] = useState<PomodoroFlow>(flow[0])
 
   const play = useCallback(() => setIsPlaying(true), [])
   const pause = useCallback(() => setIsPlaying(false), [])
+  const reset = useCallback(() => setIsFinished(false), [])
   const skip = useCallback(() => {
     setCurrentFlow(prevValue => {
-      const newFlow = flow.find(({ position }) => position > prevValue.position) || flow[0]
+      const nextFlow = flow.find(({ position }) => position > prevValue.position)
+      const nextPomodoroFlow = flow.find(
+        ({ position, type }) => position > prevValue.position && type === 'pomodoro'
+      )
+      if (!nextPomodoroFlow && prevValue.type === 'pomodoro') setIsFinished(true)
+      const newFlow = nextFlow || flow[0]
       setTime(newFlow.seconds)
 
       return newFlow
@@ -113,6 +120,8 @@ export function PomodoroProvider(props: PropsWithChildren<{}>) {
         },
         currentFlow,
         isPlaying,
+        isFinished,
+        reset,
         play,
         pause,
         skip
