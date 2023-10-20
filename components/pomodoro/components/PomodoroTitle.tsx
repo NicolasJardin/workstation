@@ -7,10 +7,10 @@ export function PomodoroTitle() {
 
   switch (currentFlow.type) {
     case 'short-break':
-      return <p className="text-2xl font-semibold">Pausa curta</p>
+      return <p className="scroll-m-20 text-2xl font-semibold tracking-tight">Pausa curta</p>
     case 'long-break':
-      return <p className="text-2xl font-semibold">Pausa Longa</p>
+      return <p className="scroll-m-20 text-2xl font-semibold tracking-tight">Pausa Longa</p>
   }
 
-  return <p className="text-2xl font-semibold text-primary">Pomodoro</p>
+  return <p className="scroll-m-20 text-2xl font-semibold tracking-tight">Pomodoro</p>
 }

@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { cookies as nextCookies } from 'next/headers'
 import './globals.css'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Html>
         <body className={inter.className}>
           <PomodoroProvider pomodoroFlow={pomodoroFlow}>{children}</PomodoroProvider>
+          <Toaster />
         </body>
       </Html>
     </ThemeProvider>

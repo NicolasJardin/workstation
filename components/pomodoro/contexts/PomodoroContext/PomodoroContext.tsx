@@ -1,7 +1,7 @@
 'use client'
 import { PropsWithChildren, createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import useSound from 'use-sound'
-import { useGetDefaultFlow } from '../../hooks'
+import { useFlowNotification, useGetDefaultFlow } from '../../hooks'
 import type { PomodoroFlow, PomodoroStore } from '../../types'
 
 export const PomodoroContext = createContext<PomodoroStore>({} as PomodoroStore)
@@ -33,24 +33,26 @@ export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderPro
 
   const seconds = useMemo(() => (time % 60).toString().padStart(2, '0'), [time])
 
+  const nextFlow = flow.find(({ position }) => position > currentFlow.position)
+  const hasNextPomodoroFlow = flow.some(
+    ({ position, type }) => position > currentFlow.position && type === 'pomodoro'
+  )
+
+  const showNotification = useFlowNotification(currentFlow, nextFlow, hasNextPomodoroFlow)
+
   const play = useCallback(() => setIsPlaying(true), [])
   const pause = useCallback(() => setIsPlaying(false), [])
   const reset = useCallback(() => setIsFinished(false), [])
 
   const skip = useCallback(() => {
     setCurrentFlow(prevValue => {
-      const nextFlow = flow.find(({ position }) => position > prevValue.position)
-      const nextPomodoroFlow = flow.find(
-        ({ position, type }) => position > prevValue.position && type === 'pomodoro'
-      )
-      if (!nextPomodoroFlow && prevValue.type === 'pomodoro') setIsFinished(true)
+      if (!hasNextPomodoroFlow && prevValue.type === 'pomodoro') setIsFinished(true)
       const newFlow = nextFlow || flow[0]
       setTime(newFlow.seconds)
-
       return newFlow
     })
     setIsPlaying(false)
-  }, [flow])
+  }, [flow, hasNextPomodoroFlow, nextFlow])
 
   const [playSound] = useSound('/sounds/success.mp3', {
     volume: 0.5
@@ -60,17 +62,13 @@ export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderPro
     const timer = setInterval(() => {
       if (isPlaying) {
         if (time > 0) {
-          const minutes = Math.floor(time / 60)
-            .toString()
-            .padStart(2, '0')
-          const seconds = (time % 60).toString().padStart(2, '0')
           setTime(time - 1)
           document.title = `${minutes}:${seconds} - Workstation`
         } else {
           clearInterval(timer)
           document.title = 'Workstation'
-          playSound()
-          new Notification('Pomodoro finalizado!')
+          if (Notification.permission !== 'granted') playSound()
+          showNotification()
           skip()
         }
       }
@@ -79,7 +77,7 @@ export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderPro
     return () => {
       clearInterval(timer)
     }
-  }, [time, playSound, isPlaying, skip])
+  }, [time, playSound, isPlaying, skip, seconds, minutes, showNotification])
 
   useEffect(() => {
     if ('Notification' in window) Notification.requestPermission()
