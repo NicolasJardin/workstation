@@ -2,13 +2,25 @@
 import { useCallback, useMemo } from 'react'
 import { PomodoroFlow } from '../types'
 import { useToast } from '@/components/ui/use-toast'
+import { NotificationsModeEnum, useSettingsContext } from '@/components/settings'
+import useSound from 'use-sound'
 
 export function useFlowNotification(
   currentFlow: PomodoroFlow,
   nextFlow: PomodoroFlow | undefined,
   hasNextPomodoroFlow: boolean
 ) {
+  const {
+    settings: {
+      notifications: { mode, permissions }
+    }
+  } = useSettingsContext()
+
   const { toast } = useToast()
+
+  const [playSound] = useSound('/sounds/success.mp3', {
+    volume: 0.5
+  })
 
   const title = useMemo(() => {
     switch (currentFlow?.type) {
@@ -35,16 +47,28 @@ export function useFlowNotification(
   }, [nextFlow?.type])
 
   return useCallback(() => {
-    if (Notification.permission === 'granted')
+    if (mode === NotificationsModeEnum.BROWSER)
       return new Notification(title, {
         body: description
       })
 
     if (!hasNextPomodoroFlow && currentFlow.type === 'pomodoro') return
 
-    return toast({
-      title,
-      description
-    })
-  }, [title, description, toast, hasNextPomodoroFlow, currentFlow.type])
+    if (permissions?.sound) playSound()
+
+    if (permissions?.toast)
+      toast({
+        title,
+        description
+      })
+  }, [
+    title,
+    description,
+    toast,
+    hasNextPomodoroFlow,
+    currentFlow.type,
+    mode,
+    permissions,
+    playSound
+  ])
 }

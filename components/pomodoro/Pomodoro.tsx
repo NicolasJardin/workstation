@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { SettingsDialog } from '.'
 import {
   CircularProgressbar,
   Countdown,
@@ -7,6 +6,7 @@ import {
   PomodoroFinishedDialog,
   PomodoroTitle
 } from './components'
+import { SettingsDialog } from '../settings'
 
 export function Pomodoro() {
   return (

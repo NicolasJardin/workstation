@@ -1,6 +1,5 @@
 'use client'
 import { PropsWithChildren, createContext, useCallback, useEffect, useMemo, useState } from 'react'
-import useSound from 'use-sound'
 import { useFlowNotification, useGetDefaultFlow } from '../../hooks'
 import type { PomodoroFlow, PomodoroStore } from '../../types'
 
@@ -54,10 +53,6 @@ export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderPro
     setIsPlaying(false)
   }, [flow, hasNextPomodoroFlow, nextFlow])
 
-  const [playSound] = useSound('/sounds/success.mp3', {
-    volume: 0.5
-  })
-
   useEffect(() => {
     const timer = setInterval(() => {
       if (isPlaying) {
@@ -67,7 +62,7 @@ export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderPro
         } else {
           clearInterval(timer)
           document.title = 'Workstation'
-          if (Notification.permission !== 'granted') playSound()
+
           showNotification()
           skip()
         }
@@ -77,7 +72,7 @@ export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderPro
     return () => {
       clearInterval(timer)
     }
-  }, [time, playSound, isPlaying, skip, seconds, minutes, showNotification])
+  }, [time, isPlaying, skip, seconds, minutes, showNotification])
 
   useEffect(() => {
     if ('Notification' in window) Notification.requestPermission()

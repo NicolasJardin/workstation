@@ -6,6 +6,8 @@ import { Inter } from 'next/font/google'
 import { cookies as nextCookies } from 'next/headers'
 import './globals.css'
 import { Toaster } from '@/components/ui/toaster'
+import { SettingsProvider } from '@/components/settings'
+import { Settings } from '@/components/settings/types'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,11 +22,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   const pomodoroFlow = cookies.get('flow')?.value
 
+  const settings = cookies.get('settings')?.value
+
   return (
     <ThemeProvider defaultTheme={defaultTheme}>
       <Html>
         <body className={inter.className}>
-          <PomodoroProvider pomodoroFlow={pomodoroFlow}>{children}</PomodoroProvider>
+          <SettingsProvider settings={settings ? JSON.parse(settings) : undefined}>
+            <PomodoroProvider pomodoroFlow={pomodoroFlow}>{children}</PomodoroProvider>
+          </SettingsProvider>
           <Toaster />
         </body>
       </Html>
