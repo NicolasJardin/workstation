@@ -1,8 +1,8 @@
 'use client'
 
-import { useThemeContext } from '@/components/theme'
+import { Fade } from '@/components/animation'
+import { FormActions } from '@/components/form'
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -13,18 +13,15 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Switch } from '@/components/ui/switch'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Info } from 'lucide-react'
 import { useCallback, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { NotificationsModeEnum } from '../enums'
 import { useSettingsContext } from '..'
-import { FormActions } from '@/components/form'
-import { setCookie } from 'cookies-next'
-import { Switch } from '@/components/ui/switch'
-import { Fade } from '@/components/animation'
-import { Info } from 'lucide-react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { NotificationsModeEnum } from '../enums'
 
 const formSchema = z.object({
   mode: z.nativeEnum(NotificationsModeEnum),
