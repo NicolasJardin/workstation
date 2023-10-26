@@ -1,3 +1,9 @@
+import { Pomodoro } from '@/components/pomodoro'
+
 export default function Home() {
-  return <main></main>
+  return (
+    <main className="w-screen h-screen">
+      <Pomodoro />
+    </main>
+  )
 }
