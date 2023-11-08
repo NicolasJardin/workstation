@@ -8,7 +8,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Settings } from 'lucide-react'
-import { SettingsAppearance, SettingsForm, SettingsNotifications } from './components'
+import { SettingsAppearance, SettingsNotifications, SettingsPomodoro } from './components'
 import { Accordion } from '@/components/ui/accordion'
 
 export function SettingsDialog() {
@@ -19,16 +19,16 @@ export function SettingsDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[768px]">
         <DialogHeader>
-          <DialogTitle>Configurar pomodoro</DialogTitle>
+          <DialogTitle>Configurações</DialogTitle>
           <DialogDescription>
             Customize seu pomodoro do jeito que funcionar melhor para você!
           </DialogDescription>
         </DialogHeader>
         <Accordion type="single" collapsible>
+          <SettingsPomodoro />
           <SettingsAppearance />
           <SettingsNotifications />
         </Accordion>
-        {/* <SettingsForm className="mt-4" /> */}
       </DialogContent>
     </Dialog>
   )

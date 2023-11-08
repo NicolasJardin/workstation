@@ -4,6 +4,7 @@ import { Settings, SettingsStore } from '../types'
 import { NotificationsModeEnum } from '../enums'
 import { setCookie } from 'cookies-next'
 import { maxAge } from '@/constants'
+import { useGetDefaultFlow } from '@/components/pomodoro/hooks'
 
 export const SettingsContext = createContext<SettingsStore>({} as SettingsStore)
 
@@ -12,20 +13,21 @@ type SettingsProviderProps = PropsWithChildren<{
 }>
 
 export function SettingsProvider(props: SettingsProviderProps) {
-  const [settings, setSettings] = useState<Settings>(
-    props.settings || {
-      notifications: {
-        mode:
-          Notification.permission === 'granted'
-            ? NotificationsModeEnum.BROWSER
-            : NotificationsModeEnum.CUSTOM,
-        permissions: {
-          sound: true,
-          toast: true
-        }
+  const defaultFlow = useGetDefaultFlow()
+
+  const [settings, setSettings] = useState<Settings>({
+    notifications: {
+      mode:
+        props.settings?.notifications.mode || Notification.permission === 'granted'
+          ? NotificationsModeEnum.BROWSER
+          : NotificationsModeEnum.CUSTOM,
+      permissions: {
+        sound: props.settings?.notifications.permissions?.sound || true,
+        toast: props.settings?.notifications.permissions?.toast || true
       }
-    }
-  )
+    },
+    flow: props.settings?.flow || defaultFlow
+  })
 
   const updateSettings = useCallback((newSettings: Partial<Settings>) => {
     setSettings(prevValues => {

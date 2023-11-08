@@ -1,6 +1,7 @@
 'use client'
+import { useSettingsContext } from '@/components/settings'
 import { PropsWithChildren, createContext, useCallback, useEffect, useMemo, useState } from 'react'
-import { useFlowNotification, useGetDefaultFlow } from '../../hooks'
+import { useFlowNotification } from '../../hooks'
 import type { PomodoroFlow, PomodoroStore } from '../../types'
 
 export const PomodoroContext = createContext<PomodoroStore>({} as PomodoroStore)
@@ -10,12 +11,9 @@ type PomodoroProviderProps = PropsWithChildren<{
 }>
 
 export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderProps) {
-  const defaultFlow = useGetDefaultFlow()
-
-  const flow = useMemo(
-    () => (pomodoroFlow ? (JSON.parse(pomodoroFlow) as PomodoroFlow[]) : defaultFlow),
-    [defaultFlow, pomodoroFlow]
-  )
+  const {
+    settings: { flow }
+  } = useSettingsContext()
 
   const [time, setTime] = useState<number>(flow[0].seconds)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
@@ -41,7 +39,15 @@ export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderPro
 
   const play = useCallback(() => setIsPlaying(true), [])
   const pause = useCallback(() => setIsPlaying(false), [])
-  const reset = useCallback(() => setIsFinished(false), [])
+  const finish = useCallback(() => setIsFinished(false), [])
+  const reset = useCallback(
+    (flow: PomodoroFlow) => {
+      setCurrentFlow(flow)
+      setTime(flow.seconds)
+      pause()
+    },
+    [pause]
+  )
 
   const skip = useCallback(() => {
     setCurrentFlow(prevValue => {
@@ -89,6 +95,7 @@ export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderPro
         currentFlow,
         isPlaying,
         isFinished,
+        finish,
         reset,
         play,
         pause,

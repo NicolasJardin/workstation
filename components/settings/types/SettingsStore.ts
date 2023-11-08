@@ -1,3 +1,4 @@
+import type { PomodoroFlow } from '@/components/pomodoro/types'
 import { NotificationsModeEnum } from '../enums'
 
 export type SettingsStore = {
@@ -13,4 +14,5 @@ export type Settings = {
       toast: boolean
     }
   }
+  flow: PomodoroFlow[]
 }

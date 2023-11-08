@@ -3,7 +3,8 @@ export type PomodoroStore = {
   isPlaying: boolean
   isFinished: boolean
   currentFlow: PomodoroFlow
-  reset: () => void
+  reset: (currentFlow: PomodoroFlow) => void
+  finish: () => void
   play: () => void
   pause: () => void
   skip: () => void
