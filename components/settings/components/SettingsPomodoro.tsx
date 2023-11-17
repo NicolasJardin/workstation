@@ -32,7 +32,7 @@ type PomodoroForm = z.infer<typeof formSchema>
 
 export function SettingsPomodoro() {
   const { settings, updateSettings } = useSettingsContext()
-  const { currentFlow, reset: resetPomodoro } = usePomodoroContext()
+  const { reset: resetPomodoro } = usePomodoroContext()
 
   const form = useForm<PomodoroForm>({
     resolver: zodResolver(formSchema),

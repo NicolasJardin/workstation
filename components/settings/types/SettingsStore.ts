@@ -14,5 +14,9 @@ export type Settings = {
       toast: boolean
     }
   }
+  appearance: {
+    theme: 'light' | 'dark'
+    background: 'banff' | 'fall' | 'forest' | 'night' | 'northernLights' | 'rain' | 'tokyo'
+  }
   flow: PomodoroFlow[]
 }

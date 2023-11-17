@@ -9,7 +9,7 @@ import { useGetDefaultFlow } from '@/components/pomodoro/hooks'
 export const SettingsContext = createContext<SettingsStore>({} as SettingsStore)
 
 type SettingsProviderProps = PropsWithChildren<{
-  settings: Settings | undefined
+  settings: Partial<Settings> | undefined
 }>
 
 export function SettingsProvider(props: SettingsProviderProps) {
@@ -18,13 +18,17 @@ export function SettingsProvider(props: SettingsProviderProps) {
   const [settings, setSettings] = useState<Settings>({
     notifications: {
       mode:
-        props.settings?.notifications.mode || Notification.permission === 'granted'
+        props.settings?.notifications?.mode || Notification.permission === 'granted'
           ? NotificationsModeEnum.BROWSER
           : NotificationsModeEnum.CUSTOM,
       permissions: {
-        sound: props.settings?.notifications.permissions?.sound || true,
-        toast: props.settings?.notifications.permissions?.toast || true
+        sound: props.settings?.notifications?.permissions?.sound || true,
+        toast: props.settings?.notifications?.permissions?.toast || true
       }
+    },
+    appearance: {
+      background: props.settings?.appearance?.background || 'rain',
+      theme: props.settings?.appearance?.theme || 'dark'
     },
     flow: props.settings?.flow || defaultFlow
   })

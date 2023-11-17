@@ -6,11 +6,9 @@ import type { PomodoroFlow, PomodoroStore } from '../../types'
 
 export const PomodoroContext = createContext<PomodoroStore>({} as PomodoroStore)
 
-type PomodoroProviderProps = PropsWithChildren<{
-  pomodoroFlow: string | undefined
-}>
+type PomodoroProviderProps = PropsWithChildren
 
-export function PomodoroProvider({ pomodoroFlow, ...props }: PomodoroProviderProps) {
+export function PomodoroProvider(props: PomodoroProviderProps) {
   const {
     settings: { flow }
   } = useSettingsContext()
