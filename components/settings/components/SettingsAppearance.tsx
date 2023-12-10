@@ -18,16 +18,7 @@ import { useSettingsContext } from '..'
 
 const schema = z.object({
   theme: z.enum(['light', 'dark']),
-  background: z.enum([
-    'rain',
-    'banff',
-    'fall',
-    'forest',
-    'night',
-    'northernLights',
-    'rain',
-    'tokyo'
-  ])
+  background: z.string()
 })
 
 type AppearanceForm = z.infer<typeof schema>
@@ -49,14 +40,10 @@ export function SettingsAppearance() {
     formState: { isDirty }
   } = form
 
-  const backgroundOptions: { value: AppearanceForm['background']; label: string }[] = [
+  const backgroundOptions: { value: string; label: string }[] = [
     {
       value: 'banff',
       label: 'Banff'
-    },
-    {
-      value: 'fall',
-      label: 'Outono'
     },
     {
       value: 'forest',
@@ -119,7 +106,7 @@ export function SettingsAppearance() {
               control={control}
               name="background"
               render={({ field: { value, onChange } }) => (
-                <FormItem>
+                <FormItem className="max-w-xs">
                   <FormLabel>Plano de fundo</FormLabel>
                   <Select value={value} onValueChange={onChange}>
                     <FormControl>

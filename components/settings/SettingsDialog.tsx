@@ -8,7 +8,12 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Settings } from 'lucide-react'
-import { SettingsAppearance, SettingsNotifications, SettingsPomodoro } from './components'
+import {
+  SettingsAppearance,
+  SettingsNotifications,
+  SettingsPomodoro,
+  SettingsAudio
+} from './components'
 import { Accordion } from '@/components/ui/accordion'
 
 export function SettingsDialog() {
@@ -28,6 +33,7 @@ export function SettingsDialog() {
           <SettingsPomodoro />
           <SettingsAppearance />
           <SettingsNotifications />
+          <SettingsAudio />
         </Accordion>
       </DialogContent>
     </Dialog>

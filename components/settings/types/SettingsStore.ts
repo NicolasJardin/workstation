@@ -16,7 +16,11 @@ export type Settings = {
   }
   appearance: {
     theme: 'light' | 'dark'
-    background: 'banff' | 'fall' | 'forest' | 'night' | 'northernLights' | 'rain' | 'tokyo'
+    background: string
+  }
+  audio: {
+    src: string
+    volume: number
   }
   flow: PomodoroFlow[]
 }

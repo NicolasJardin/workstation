@@ -1,10 +1,10 @@
 'use client'
-import { PropsWithChildren, createContext, useCallback, useState } from 'react'
-import { Settings, SettingsStore } from '../types'
-import { NotificationsModeEnum } from '../enums'
-import { setCookie } from 'cookies-next'
-import { maxAge } from '@/constants'
 import { useGetDefaultFlow } from '@/components/pomodoro/hooks'
+import { maxAge } from '@/constants'
+import { setCookie } from 'cookies-next'
+import { PropsWithChildren, createContext, useCallback, useState } from 'react'
+import { NotificationsModeEnum } from '../enums'
+import { Settings, SettingsStore } from '../types'
 
 export const SettingsContext = createContext<SettingsStore>({} as SettingsStore)
 
@@ -15,22 +15,28 @@ type SettingsProviderProps = PropsWithChildren<{
 export function SettingsProvider(props: SettingsProviderProps) {
   const defaultFlow = useGetDefaultFlow()
 
+  const { appearance, audio, flow, notifications } = props.settings || {}
+
   const [settings, setSettings] = useState<Settings>({
     notifications: {
       mode:
-        props.settings?.notifications?.mode || Notification.permission === 'granted'
+        notifications?.mode || Notification.permission === 'granted'
           ? NotificationsModeEnum.BROWSER
           : NotificationsModeEnum.CUSTOM,
       permissions: {
-        sound: props.settings?.notifications?.permissions?.sound || true,
-        toast: props.settings?.notifications?.permissions?.toast || true
+        sound: notifications?.permissions?.sound || true,
+        toast: notifications?.permissions?.toast || true
       }
     },
     appearance: {
-      background: props.settings?.appearance?.background || 'rain',
-      theme: props.settings?.appearance?.theme || 'dark'
+      background: appearance?.background || 'rain',
+      theme: appearance?.theme || 'dark'
     },
-    flow: props.settings?.flow || defaultFlow
+    audio: {
+      src: audio?.src || 'success',
+      volume: audio?.volume || 0.5
+    },
+    flow: flow || defaultFlow
   })
 
   const updateSettings = useCallback((newSettings: Partial<Settings>) => {
