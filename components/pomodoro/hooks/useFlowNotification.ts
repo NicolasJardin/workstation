@@ -1,9 +1,9 @@
 'use client'
-import { useCallback, useMemo } from 'react'
-import { PomodoroFlow } from '../types'
-import { useToast } from '@/components/ui/use-toast'
 import { NotificationsModeEnum, useSettingsContext } from '@/components/settings'
+import { useToast } from '@/components/ui/use-toast'
+import { useCallback, useMemo } from 'react'
 import useSound from 'use-sound'
+import { PomodoroFlow } from '../types'
 
 export function useFlowNotification(
   currentFlow: PomodoroFlow,
@@ -12,14 +12,15 @@ export function useFlowNotification(
 ) {
   const {
     settings: {
-      notifications: { mode, permissions }
+      notifications: { mode, permissions },
+      audio: { volume, src }
     }
   } = useSettingsContext()
 
   const { toast } = useToast()
 
-  const [playSound] = useSound('/sounds/success.mp3', {
-    volume: 0.5
+  const [playSound] = useSound(`/sounds/${src}.mp3`, {
+    volume
   })
 
   const title = useMemo(() => {

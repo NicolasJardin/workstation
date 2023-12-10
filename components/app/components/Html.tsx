@@ -1,9 +1,10 @@
 'use client'
-import { useThemeContext } from '@/components/theme'
+
+import { useSettingsContext } from '@/components/settings'
 import { HtmlHTMLAttributes } from 'react'
 
 export function Html(props: HtmlHTMLAttributes<HTMLHtmlElement>) {
-  const { theme } = useThemeContext()
+  const { settings } = useSettingsContext()
 
-  return <html lang="pt-br" className={theme} {...props} />
+  return <html lang="pt-br" className={settings.appearance.theme} {...props} />
 }

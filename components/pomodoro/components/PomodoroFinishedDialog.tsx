@@ -10,10 +10,10 @@ import {
 import { usePomodoroContext } from '..'
 
 export function PomodoroFinishedDialog() {
-  const { isFinished, reset } = usePomodoroContext()
+  const { isFinished, finish } = usePomodoroContext()
 
   return (
-    <Dialog open={isFinished} onOpenChange={reset}>
+    <Dialog open={isFinished} onOpenChange={finish}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Pomodoro finalizado!</DialogTitle>

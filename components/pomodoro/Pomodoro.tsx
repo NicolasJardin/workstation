@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
   CircularProgressbar,
   Countdown,
+  PomodoroBackground,
   PomodoroControls,
   PomodoroFinishedDialog,
   PomodoroTitle
@@ -10,7 +11,8 @@ import { SettingsDialog } from '../settings'
 
 export function Pomodoro() {
   return (
-    <div className="flex items-center justify-center h-full bg-[url('/img/background.jpg')] bg-cover">
+    <div className="relative flex items-center justify-center h-full">
+      <PomodoroBackground />
       <PomodoroFinishedDialog />
       <Card>
         <CardHeader className="items-end">
