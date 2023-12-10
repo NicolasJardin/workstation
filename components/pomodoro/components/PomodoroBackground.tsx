@@ -8,7 +8,7 @@ export function PomodoroBackground() {
 
   return (
     <Image
-      className="absolute w-full h-full z-[-1]"
+      className="hidden sm:block absolute w-full h-full z-[-1]"
       src={`/img/${settings.appearance.background}.jpg`}
       alt=""
       fill
