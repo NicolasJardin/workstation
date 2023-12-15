@@ -14,7 +14,7 @@ export function Pomodoro() {
     <div className="relative flex items-center justify-center h-full">
       <PomodoroBackground />
       <PomodoroFinishedDialog />
-      <Card>
+      <Card className="w-full h-full sm:w-min sm:h-min">
         <CardHeader className="items-end">
           <SettingsDialog />
         </CardHeader>
